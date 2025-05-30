@@ -19,7 +19,7 @@ public class Rook extends Piece implements LinearMovement, PromotableTo
     {
         // Add your action code here.
     }
-    public void linearMove() {
+    public void linearMove(int row, int col) {
         
     }
     public void promoteTo() {

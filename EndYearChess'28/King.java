@@ -25,7 +25,7 @@ public class King extends Piece implements DiagonalMovement, LinearMovement
     public void diagonalCapture() {
         
     }
-    public void linearMove() {
+    public void linearMove(int row, int col) {
         
     }
 }

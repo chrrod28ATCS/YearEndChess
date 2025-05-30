@@ -6,5 +6,5 @@
  */
 public interface LinearMovement  
 {
-    public void linearMove();
+    public void linearMove(int row, int col);
 }

@@ -25,7 +25,7 @@ public class Queen extends Piece implements DiagonalMovement, LinearMovement, Pr
     public void diagonalCapture() {
         
     }
-    public void linearMove() {
+    public void linearMove(int row, int col) {
     
     }
     public void promoteTo() {
