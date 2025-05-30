@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Queen extends Piece implements DiagonalMovement, LinearMovement, PromotableTo
 {
+    public Queen(String color) {
+        super(color);
+    }
     /**
      * Act - do whatever the Queen wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

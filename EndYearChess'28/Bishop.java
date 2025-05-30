@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bishop extends Piece implements DiagonalMovement, PromotableTo
 {
+    public Bishop(String color) {
+        super(color);
+    }
     /**
      * Act - do whatever the Bishop wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

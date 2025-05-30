@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class King extends Piece implements DiagonalMovement, LinearMovement
 {
+    public King(String color) {
+        super(color);
+    }
     /**
      * Act - do whatever the King wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

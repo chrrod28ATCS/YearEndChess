@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Pawn extends Piece implements LinearMovement, DiagonalMovement
 {
+    public Pawn(String color) {
+        super(color);
+    }
     /**
      * Act - do whatever the Pawn wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
