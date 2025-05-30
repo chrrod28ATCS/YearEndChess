@@ -5,17 +5,21 @@ import java.util.List;/**
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld extends World
+public class ChessWorld extends World
 {
     private Piece[][] board = new Piece[8][8];
     /**
      * Constructor for objects of class MyWorld.
      * 
      */
-    public MyWorld()
+    public ChessWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(640, 640, 1);
+        displayBoard();
+    }
+    public void act() {
+        prepare();
         displayBoard();
     }
     public void prepare() {
@@ -51,7 +55,7 @@ public class MyWorld extends World
         for (Piece[] row: board) {
             for (Piece current: row) {
                 if (current != null) {
-                int[] loc = current.getLoc();
+                int[] loc = getLoc(current);
                 int r = loc[0]+1;
                 int c = loc[1]+1;
                 addObject(current, r*80-40, c*80-40);
@@ -66,7 +70,7 @@ public class MyWorld extends World
     int temp[] = new int[1];
     return temp;
     }
-    /*public void updateBoard() {
+    public void updateBoard() {
         List<Piece> actors = getObjects(Piece.class);
         for (Piece current: actors) {
             int x = current.getX();
@@ -79,10 +83,23 @@ public class MyWorld extends World
             }
             setPiece(x / 80, y/80, current);
         }
-    }*/
+    }
     public void pieceDropped(Piece p) {
         int x = p.getX();
         int y = p.getY();
         int row = (x+40)/80;
+    }
+    
+    public int[] getLoc(Piece p) {
+        int[] loc = new int[2];
+        for (int i = 0; i<board.length; i++) {
+            for (int j = 0; j<board[i].length; j++) {
+                if (board[i][j] == p) {
+                    loc[0] = i;
+                    loc[1] = j;
+                }
+            }
+        }
+        return loc;
     }
 }

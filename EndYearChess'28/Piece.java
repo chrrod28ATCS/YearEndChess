@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Piece extends Actor
 {
     private String color;
-    private MyWorld w = (MyWorld)(getWorld());
-    private Piece[][] b = w.getBoard();
+    private ChessWorld w;
+    private Piece[][] b;
     private boolean dragging = false;
     public Piece(String color) {
         this.color = color;
@@ -21,23 +21,12 @@ public abstract class Piece extends Actor
      */
     public void act()
     {
-        
+        w = (ChessWorld)getWorld();
+        b = w.getBoard();
     }
-    public int[] getLoc() {
-       int row = 0;
-       int col = 0;
-       int[] loc = new int[2];
-       for (int i = 0; i<b.length; i++) {
-           for (int j = 0; j<b[i].length; j++) {
-               if (b[i][j].equals(this)) {
-                   row = i;
-                   col = j;
-               }
-           }
-       }
-       loc[0] = row;
-       loc[1] = col;
-       return loc;
+     public int[] getLoc() {
+       ChessWorld w = (ChessWorld)(getWorld());
+       return w.getLoc(this);
     }
     public String getColor() {
         return color;
