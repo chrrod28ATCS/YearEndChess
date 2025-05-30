@@ -1,6 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
-/**
+import java.util.List;/**
  * Write a description of class MyWorld here.
  * 
  * @author (your name) 
@@ -41,8 +40,12 @@ public class MyWorld extends World
         setPiece(6, 6, new Knight("Black"));
         setPiece(6, 7, new Rook("Black"));
     }
-    public void setPiece(int row, int col, Piece p) {
+    public boolean setPiece(int row, int col, Piece p) {
+        if(board[row][col] != null && board[row][col].getColor().equals(p.getColor())) {
+            return false;
+        }
         board[row][col] = p;
+        return true;
     }
     public void displayBoard() {
         for (Piece[] row: board) {
@@ -63,7 +66,23 @@ public class MyWorld extends World
     int temp[] = new int[1];
     return temp;
     }
-    public int updateBoard() {
-        ArrayList<Piece> = Greenfoot.getActors();
+    /*public void updateBoard() {
+        List<Piece> actors = getObjects(Piece.class);
+        for (Piece current: actors) {
+            int x = current.getX();
+            int y = current.getY();
+            if (x % 80 == 0) {
+                x--;
+            }
+            if (y % 80 == 0) {
+                y--;
+            }
+            setPiece(x / 80, y/80, current);
+        }
+    }*/
+    public void pieceDropped(Piece p) {
+        int x = p.getX();
+        int y = p.getY();
+        int row = (x+40)/80;
     }
 }

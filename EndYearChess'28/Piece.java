@@ -11,7 +11,7 @@ public abstract class Piece extends Actor
     private String color;
     private MyWorld w = (MyWorld)(getWorld());
     private Piece[][] b = w.getBoard();
-    MouseInfo mouse = Greenfoot.getMouseInfo();
+    private boolean dragging = false;
     public Piece(String color) {
         this.color = color;
     }
@@ -21,9 +21,7 @@ public abstract class Piece extends Actor
      */
     public void act()
     {
-        if (mouse != null && Greenfoot.mouseClicked(null)) {
-            Actor clicked = mouse.getActor();
-        }
+        
     }
     public int[] getLoc() {
        int row = 0;
@@ -31,14 +29,32 @@ public abstract class Piece extends Actor
        int[] loc = new int[2];
        for (int i = 0; i<b.length; i++) {
            for (int j = 0; j<b[i].length; j++) {
-               if (!b[i][j].equals(this)) {
-                   col++;
+               if (b[i][j].equals(this)) {
+                   row = i;
+                   col = j;
                }
            }
-           row++;
        }
        loc[0] = row;
        loc[1] = col;
        return loc;
+    }
+    public String getColor() {
+        return color;
+    }
+    public void handleDrag() {
+        if (Greenfoot.mousePressed(this)) {
+            dragging = true;
+        }
+        if (dragging = true) {
+            MouseInfo mouse = Greenfoot.getMouseInfo();
+            if (mouse != null) {
+                setLocation(mouse.getX(), mouse.getY());
+            }
+        }
+        if (dragging & Greenfoot.mouseDragEnded(this)) {
+            dragging = false;
+            w.pieceDropped(this);
+        }
     }
 }
