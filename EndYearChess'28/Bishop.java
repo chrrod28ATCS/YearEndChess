@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bishop extends Piece implements DiagonalMovement, PromotableTo
 {
     public Bishop(String color) {
-        super(color);
+        super(color, 3);
     }
     /**
      * Act - do whatever the Bishop wants to do. This method is called whenever

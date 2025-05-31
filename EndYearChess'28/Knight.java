@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Knight extends Piece implements PromotableTo
 {
     public Knight(String color){
-        super(color);
+        super(color, 3);
     }
     /**
      * Act - do whatever the Knight wants to do. This method is called whenever

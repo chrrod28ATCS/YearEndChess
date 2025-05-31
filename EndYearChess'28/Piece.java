@@ -9,11 +9,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Piece extends Actor
 {
     private String color;
+    private int value;
     private ChessWorld w;
     private Piece[][] b;
     private boolean dragging = false;
-    public Piece(String color) {
+    private boolean added = false;
+    public Piece(String color, int val) {
         this.color = color;
+        value = val;
     }
     /**
      * Act - do whatever the Piece wants to do. This method is called whenever
@@ -21,8 +24,7 @@ public abstract class Piece extends Actor
      */
     public void act()
     {
-        w = (ChessWorld)getWorld();
-        b = w.getBoard();
+        handleDrag();
     }
      public int[] getLoc() {
        ChessWorld w = (ChessWorld)(getWorld());
@@ -32,18 +34,25 @@ public abstract class Piece extends Actor
         return color;
     }
     public void handleDrag() {
-        if (Greenfoot.mousePressed(this)) {
+        if (Greenfoot.mouseClicked(this)) {
             dragging = true;
         }
-        if (dragging = true) {
+        if (dragging) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             if (mouse != null) {
                 setLocation(mouse.getX(), mouse.getY());
             }
         }
-        if (dragging & Greenfoot.mouseDragEnded(this)) {
+        if (dragging && Greenfoot.mouseDragEnded(this)) {
             dragging = false;
-            w.pieceDropped(this);
+            if (added) {
+                w.pieceDropped(this);
+            }
         }
+    }
+    public void addedToWorld() {
+        added = true;
+        w = (ChessWorld)getWorld();
+        b = w.getBoard();
     }
 }

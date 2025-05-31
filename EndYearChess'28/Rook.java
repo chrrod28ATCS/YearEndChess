@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Rook extends Piece implements LinearMovement, PromotableTo
 {
     public Rook(String color) {
-        super(color);
+        super(color, 5);
     }
     /**
      * Act - do whatever the Rook wants to do. This method is called whenever

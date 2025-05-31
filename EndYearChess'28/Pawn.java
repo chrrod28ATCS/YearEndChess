@@ -9,7 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Pawn extends Piece implements LinearMovement, DiagonalMovement
 {
     public Pawn(String color) {
-        super(color);
+        super(color, 1);
+        GreenfootImage img = getImage();
+        img.scale(img.getWidth()/2, img.getHeight()/2);
+        setImage(img);
     }
     /**
      * Act - do whatever the Pawn wants to do. This method is called whenever
@@ -17,7 +20,7 @@ public class Pawn extends Piece implements LinearMovement, DiagonalMovement
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     public void diagonalMove() {
         

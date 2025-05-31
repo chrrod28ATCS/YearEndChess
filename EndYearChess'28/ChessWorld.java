@@ -16,13 +16,11 @@ public class ChessWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(640, 640, 1);
-        displayBoard();
     }
     public void act() {
         prepare();
-        displayBoard();
     }
-    public void prepare() {
+    private void prepare() {
         setPiece(0, 0, new Rook("White"));
         setPiece(0, 1, new Knight("White"));
         setPiece(0, 2, new Bishop("White"));
@@ -43,6 +41,7 @@ public class ChessWorld extends World
         setPiece(6, 5, new Bishop("Black"));
         setPiece(6, 6, new Knight("Black"));
         setPiece(6, 7, new Rook("Black"));
+        displayBoard();
     }
     public boolean setPiece(int row, int col, Piece p) {
         if(board[row][col] != null && board[row][col].getColor().equals(p.getColor())) {
@@ -58,7 +57,7 @@ public class ChessWorld extends World
                 int[] loc = getLoc(current);
                 int r = loc[0]+1;
                 int c = loc[1]+1;
-                addObject(current, r*80-40, c*80-40);
+                addObject(current, c*80-40, r*80-40);
                 }
             }
         }
@@ -70,7 +69,7 @@ public class ChessWorld extends World
     int temp[] = new int[1];
     return temp;
     }
-    public void updateBoard() {
+    /*public void updateBoard() {
         List<Piece> actors = getObjects(Piece.class);
         for (Piece current: actors) {
             int x = current.getX();
@@ -83,13 +82,12 @@ public class ChessWorld extends World
             }
             setPiece(x / 80, y/80, current);
         }
-    }
+    }*/
     public void pieceDropped(Piece p) {
         int x = p.getX();
         int y = p.getY();
         int row = (x+40)/80;
     }
-    
     public int[] getLoc(Piece p) {
         int[] loc = new int[2];
         for (int i = 0; i<board.length; i++) {
