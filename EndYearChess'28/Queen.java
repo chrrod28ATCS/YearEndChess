@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Queen extends Piece implements DiagonalMovement, LinearMovement, PromotableTo
 {
+    //test
     public Queen(String color) {
         super(color, 9);
     }

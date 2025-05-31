@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bishop extends Piece implements DiagonalMovement, PromotableTo
 {
+    //test
     public Bishop(String color) {
         super(color, 3);
     }

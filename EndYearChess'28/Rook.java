@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Rook extends Piece implements LinearMovement, PromotableTo
 {
+    //test
     public Rook(String color) {
         super(color, 5);
     }

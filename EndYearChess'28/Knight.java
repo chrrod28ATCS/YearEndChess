@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Knight extends Piece implements PromotableTo
 {
+    //test
     public Knight(String color){
         super(color, 3);
     }

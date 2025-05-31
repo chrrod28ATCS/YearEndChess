@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Pawn extends Piece implements LinearMovement, DiagonalMovement
 {
+    //test
     public Pawn(String color) {
         super(color, 1);
         GreenfootImage img = getImage();

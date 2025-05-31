@@ -14,6 +14,7 @@ public abstract class Piece extends Actor
     private Piece[][] b;
     private boolean dragging = false;
     private boolean added = false;
+    //test
     public Piece(String color, int val) {
         this.color = color;
         value = val;

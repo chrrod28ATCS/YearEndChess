@@ -8,6 +8,7 @@ import java.util.List;/**
 public class ChessWorld extends World
 {
     private Piece[][] board = new Piece[8][8];
+    //test
     /**
      * Constructor for objects of class MyWorld.
      * 
