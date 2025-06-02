@@ -16,12 +16,14 @@ public class ChessWorld extends World
     public ChessWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(640, 640, 1);
+        super(1280, 1280, 1);
+        setPaintOrder(Piece.class);
     }
     public void act() {
         prepare();
     }
     private void prepare() {
+        addObject(new BoardActor(), 640, 640);
         setPiece(0, 0, new Rook("White"));
         setPiece(0, 1, new Knight("White"));
         setPiece(0, 2, new Bishop("White"));
@@ -58,7 +60,7 @@ public class ChessWorld extends World
                 int[] loc = getLoc(current);
                 int r = loc[0]+1;
                 int c = loc[1]+1;
-                addObject(current, c*80-40, r*80-40);
+                addObject(current, 320+c*80-40, 320+r*80-40);
                 }
             }
         }
@@ -87,7 +89,8 @@ public class ChessWorld extends World
     public void pieceDropped(Piece p) {
         int x = p.getX();
         int y = p.getY();
-        int row = (x+40)/80;
+        int col = (x+40)/80;
+        int row = (y+40)/80;
     }
     public int[] getLoc(Piece p) {
         int[] loc = new int[2];

@@ -21,7 +21,7 @@ public class Pawn extends Piece implements LinearMovement, DiagonalMovement
      */
     public void act()
     {
-        super.act();
+        handleDrag();
     }
     public void diagonalMove() {
         

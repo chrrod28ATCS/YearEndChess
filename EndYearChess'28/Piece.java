@@ -34,8 +34,9 @@ public abstract class Piece extends Actor
     public String getColor() {
         return color;
     }
-    public void handleDrag() {
-        if (Greenfoot.mouseClicked(this)) {
+    public int[] handleDrag() {
+        int[] orgPos = this.getLoc();
+        if (Greenfoot.mouseDragged(this)) {
             dragging = true;
         }
         if (dragging) {
@@ -50,6 +51,7 @@ public abstract class Piece extends Actor
                 w.pieceDropped(this);
             }
         }
+        return orgPos;
     }
     public void addedToWorld() {
         added = true;
