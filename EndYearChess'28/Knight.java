@@ -24,7 +24,8 @@ public class Knight extends Piece implements PromotableTo
         return true;
     }
      public ArrayList<int[]> getMoves() {
-         
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void promoteTo() {
         

@@ -28,7 +28,8 @@ public class Pawn extends Piece implements LinearMovement, DiagonalMovement
         return true;
     }
     public ArrayList<int[]> getMoves() {
-        
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void diagonalMove() {
         

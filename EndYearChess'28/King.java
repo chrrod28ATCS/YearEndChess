@@ -24,7 +24,8 @@ public class King extends Piece implements DiagonalMovement, LinearMovement
         return true;
     }
     public ArrayList<int[]> getMoves() {
-        
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void diagonalMove() {
         

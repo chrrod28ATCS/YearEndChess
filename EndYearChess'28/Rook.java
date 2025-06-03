@@ -23,6 +23,8 @@ public class Rook extends Piece implements LinearMovement, PromotableTo
         return true;
     }
      public ArrayList<int[]> getMoves() {
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void linearMove(int row, int col) {
         

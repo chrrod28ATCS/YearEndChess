@@ -23,6 +23,8 @@ public class Bishop extends Piece implements DiagonalMovement, PromotableTo
         return true;
     }
     public ArrayList<int[]> getMoves() {
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void diagonalMove() {
         

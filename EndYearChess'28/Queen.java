@@ -24,6 +24,8 @@ public class Queen extends Piece implements DiagonalMovement, LinearMovement, Pr
         return true;
     }
      public ArrayList<int[]> getMoves() {
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
     public void diagonalMove() {
         
