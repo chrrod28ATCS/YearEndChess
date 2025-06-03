@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class King here.
  * 
@@ -20,6 +20,12 @@ public class King extends Piece implements DiagonalMovement, LinearMovement
     {
         // Add your action code here.
     }
+    public boolean isLegalMove(int startRow, int startCol, int targetRow, int targetCol, Piece[][] board) {
+        return true;
+    }
+    public ArrayList<int[]> getMoves() {
+        
+    }
     public void diagonalMove() {
         
     }
@@ -28,5 +34,9 @@ public class King extends Piece implements DiagonalMovement, LinearMovement
     }
     public void linearMove(int row, int col) {
         
+    }
+    public void addedToWorld() {
+        ChessWorld w = (ChessWorld)(getWorld());
+        w.setHasTwoKings(true);
     }
 }

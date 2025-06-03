@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Rook here.
  * 
@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Rook extends Piece implements LinearMovement, PromotableTo
 {
-    //test
     public Rook(String color) {
         super(color, 5);
     }
@@ -19,6 +18,11 @@ public class Rook extends Piece implements LinearMovement, PromotableTo
     public void act()
     {
         // Add your action code here.
+    }
+    public boolean isLegalMove(int startRow, int startCol, int targetRow, int targetCol, Piece[][] board) {
+        return true;
+    }
+     public ArrayList<int[]> getMoves() {
     }
     public void linearMove(int row, int col) {
         

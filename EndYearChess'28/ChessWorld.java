@@ -8,7 +8,11 @@ import java.util.List;/**
 public class ChessWorld extends World
 {
     private Piece[][] board = new Piece[8][8];
-    //test
+    private Piece selectedPiece = null;
+    private BoardActor b = new BoardActor();
+    private boolean hasTwoKings;
+    private Player white = new Player("White");
+    private Player black = new Player("Black");
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -16,14 +20,15 @@ public class ChessWorld extends World
     public ChessWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1280, 1280, 1);
-        setPaintOrder(Piece.class);
-    }
-    public void act() {
+        super(1280, 640, 1);
+        setPaintOrder(Piece.class, Marker.class);
         prepare();
     }
+    public void act() {
+        
+    }
     private void prepare() {
-        addObject(new BoardActor(), 640, 640);
+        addObject(b, 640, 320);
         setPiece(0, 0, new Rook("White"));
         setPiece(0, 1, new Knight("White"));
         setPiece(0, 2, new Bishop("White"));
@@ -60,17 +65,21 @@ public class ChessWorld extends World
                 int[] loc = getLoc(current);
                 int r = loc[0]+1;
                 int c = loc[1]+1;
-                addObject(current, 320+c*80-40, 320+r*80-40);
+                addObject(current, 320+c*80-40, r*80-40);
                 }
             }
         }
     }
+    public int[] convertToArray(Piece p, int x, int y) {
+        int col = (p.getOldX()-320)/80;
+        int row = (p.getOldY()/80);
+        return new int[]{col, row};
+    }
     public Piece[][] getBoard() {
         return board;
     }
-    public int[] calcMoveLoc() {
-    int temp[] = new int[1];
-    return temp;
+    public Piece getPieceAtPos(int row, int col) {
+        return board[row][col];
     }
     /*public void updateBoard() {
         List<Piece> actors = getObjects(Piece.class);
@@ -86,11 +95,12 @@ public class ChessWorld extends World
             setPiece(x / 80, y/80, current);
         }
     }*/
-    public void pieceDropped(Piece p) {
-        int x = p.getX();
-        int y = p.getY();
-        int col = (x+40)/80;
-        int row = (y+40)/80;
+    public void pieceDropped(Piece p, int x, int y) {
+        if (selectedPiece != null) {
+            selectedPiece.setLocation(x,y);
+            position(selectedPiece);
+            checkIllegalMove(p, p.getOldX(), p.getOldY(), x, y);
+        }
     }
     public int[] getLoc(Piece p) {
         int[] loc = new int[2];
@@ -103,5 +113,54 @@ public class ChessWorld extends World
             }
         }
         return loc;
+    }
+    public void setSelectedPiece(Piece p) {
+        selectedPiece = p;
+    }
+    public Piece getSelectedPiece() {
+        return selectedPiece;
+    }
+    public BoardActor getBoardActor() {
+        return b;
+    }
+    public void setHasTwoKings(boolean twoKings) {
+        hasTwoKings = twoKings;
+    }
+    public void checkIllegalMove(Piece p, int oldX, int oldY, int newX, int newY) {
+        int[] oldPos = convertToArray(p, oldX, oldY);
+        int[] newPos = convertToArray(p, newX, newY);
+        int oldRow = oldPos[1];
+        int oldCol = oldPos[0];
+        int newRow = newPos[1];
+        int newCol = newPos[0];
+        Piece check = board[newPos[1]][newPos[0]];
+        if (p instanceof Pawn) {
+            boolean firstTurn = ((Pawn)(p)).checkFirstTurn();
+            if (firstTurn) {
+                if (checkPlace(p, check)) {
+                    setPiece(newPos[1], newPos[0], p); 
+                } else {
+                    
+                }
+            }
+        }
+    }
+    public boolean checkPlace(Piece p, Piece check) {
+        if (check == null || !check.getColor().equals(p.getColor())) {
+            return true;
+        }
+        return false;
+    }
+    public void position(Piece p) {
+        int boardLeft = 320;        
+        int boardTop = 0;           
+        int tileSize = 80;          
+        int col = (p.getX() - boardLeft) / tileSize;
+        int row = (p.getY() - boardTop) / tileSize;
+        col = Math.max(0, Math.min(7, col));
+        row = Math.max(0, Math.min(7, row));
+        int x = boardLeft + (col * tileSize) + tileSize / 2;
+        int y = boardTop + (row * tileSize) + tileSize / 2;
+        p.setLocation(x, y);
     }
 }

@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Queen here.
  * 
@@ -19,6 +19,11 @@ public class Queen extends Piece implements DiagonalMovement, LinearMovement, Pr
     public void act()
     {
         // Add your action code here.
+    }
+    public boolean isLegalMove(int startRow, int startCol, int targetRow, int targetCol, Piece[][] board) {
+        return true;
+    }
+     public ArrayList<int[]> getMoves() {
     }
     public void diagonalMove() {
         

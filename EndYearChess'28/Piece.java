@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Piece here.
  * 
@@ -12,9 +12,9 @@ public abstract class Piece extends Actor
     private int value;
     private ChessWorld w;
     private Piece[][] b;
-    private boolean dragging = false;
     private boolean added = false;
-    //test
+    private int oldX;
+    private int oldY;
     public Piece(String color, int val) {
         this.color = color;
         value = val;
@@ -34,25 +34,37 @@ public abstract class Piece extends Actor
     public String getColor() {
         return color;
     }
-    public int[] handleDrag() {
-        int[] orgPos = this.getLoc();
-        if (Greenfoot.mouseDragged(this)) {
-            dragging = true;
+    public void setOldX(int x) {
+        oldX = x;
+    }
+    public void setOldY(int y) {
+        oldY = y;
+    }
+    public int getOldX() {
+        return oldX;
+    }
+    public int getOldY() {
+        return oldY;
+    }
+    public boolean handleDrag() {
+        ChessWorld world = (ChessWorld) getWorld();
+        if (Greenfoot.mouseClicked(this)) {
+            world.setSelectedPiece(this);
+            setOldX(this.getX());
+            setOldY(this.getY());
         }
-        if (dragging) {
+        if (Greenfoot.mouseClicked(world.getBoardActor()) && world.getSelectedPiece() == this) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             if (mouse != null) {
-                setLocation(mouse.getX(), mouse.getY());
+                world.pieceDropped(this, mouse.getX(), mouse.getY());
+                world.setSelectedPiece(null);
+                return true;
             }
         }
-        if (dragging && Greenfoot.mouseDragEnded(this)) {
-            dragging = false;
-            if (added) {
-                w.pieceDropped(this);
-            }
-        }
-        return orgPos;
+        return false;
     }
+    public abstract boolean isLegalMove(int startRow, int startCol, int targetRow, int targetCol, Piece[][] board);
+    public abstract ArrayList<int[]> getMoves();
     public void addedToWorld() {
         added = true;
         w = (ChessWorld)getWorld();

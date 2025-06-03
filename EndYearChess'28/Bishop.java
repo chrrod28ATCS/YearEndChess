@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Bishop here.
  * 
@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bishop extends Piece implements DiagonalMovement, PromotableTo
 {
-    //test
     public Bishop(String color) {
         super(color, 3);
     }
@@ -19,6 +18,11 @@ public class Bishop extends Piece implements DiagonalMovement, PromotableTo
     public void act()
     {
         // Add your action code here.
+    }
+    public boolean isLegalMove(int startRow, int startCol, int targetRow, int targetCol, Piece[][] board) {
+        return true;
+    }
+    public ArrayList<int[]> getMoves() {
     }
     public void diagonalMove() {
         
