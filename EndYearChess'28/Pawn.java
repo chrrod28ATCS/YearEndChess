@@ -28,7 +28,65 @@ public class Pawn extends Piece implements LinearMovement, DiagonalMovement
         return true;
     }
     public ArrayList<int[]> getMoves() {
+        ChessWorld w = ((ChessWorld)(getWorld()));
+        Piece[][] b = w.getBoard();
+        int[] pieceLoc = getLoc();
+        int row = pieceLoc[0];
+        int col = pieceLoc[1];
         ArrayList<int[]> possibleMoves = new ArrayList<>();
+        if (getColor().equals("White")) {
+            if (isFirstTurn) {
+                if (w.inBounds(row+2, col)) {
+                    if (b[row + 2][col] == null) {
+                        int[] pos = {row+2, col};
+                        possibleMoves.add(pos);
+                    } 
+                }
+            }
+            if (w.inBounds(row+1, col)) {
+                    if (b[row+1][col] == null) {
+                    int[] pos = {row+1, col};
+                    possibleMoves.add(pos);
+                }
+            }
+            if (w.inBounds(row+1, col+1)) {
+                if (b[row+1][col+1] != null && !b[row+1][col+1].getColor().equals(this.getColor())) {
+                    int[] pos = {row+1, col+1};
+                    possibleMoves.add(pos);
+                }
+            }
+            if (w.inBounds(row+1, col-1)) {
+                if (b[row+1][col-1] != null && !b[row+1][col-1].getColor().equals(this.getColor())) {
+                    int[] pos = {row+1, col-1};
+                    possibleMoves.add(pos);
+                }
+            }
+        } else {
+            if (isFirstTurn) {
+                if(b[row-2][col] == null) {
+                    int[] pos = {row-2, col};
+                    possibleMoves.add(pos);
+                }
+            }
+            if (w.inBounds(row-1, col)) {
+                    if (b[row-1][col] == null) {
+                    int[] pos = {row-1, col};
+                    possibleMoves.add(pos);
+                }
+            }
+            if (w.inBounds(row-1, col+1)) {
+                    if (b[row-1][col+1] != null && !b[row-1][col+1].getColor().equals(this.getColor())) {
+                    int[] pos = {row-1, col+1};
+                    possibleMoves.add(pos);
+                }
+            }
+            if (w.inBounds(row -1, col-1)) {
+                    if (b[row-1][col-1] != null && !b[row-1][col+1].getColor().equals(this.getColor())) {
+                    int[] pos = {row-1, col+1};
+                    possibleMoves.add(pos);
+                } 
+            }
+        }
         return possibleMoves;
     }
     public void diagonalMove() {
@@ -45,12 +103,5 @@ public class Pawn extends Piece implements LinearMovement, DiagonalMovement
     }
     public void setFirstTurn(boolean first) {
         isFirstTurn = first;
-    }
-    public boolean handleDrag() {
-        boolean hasMoved = super.handleDrag();
-        if (hasMoved) {
-            setFirstTurn(false);
-        }
-        return hasMoved;
     }
 }

@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.List;/**
+import java.util.List;
+import java.util.ArrayList;
+/**
  * Write a description of class MyWorld here.
  * 
  * @author (your name) 
@@ -13,6 +15,7 @@ public class ChessWorld extends World
     private boolean hasTwoKings;
     private Player white = new Player("White");
     private Player black = new Player("Black");
+    private boolean markersShown;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -71,8 +74,8 @@ public class ChessWorld extends World
         }
     }
     public int[] convertToArray(Piece p, int x, int y) {
-        int col = (p.getOldX()-320)/80;
-        int row = (p.getOldY()/80);
+        int col = (x-320)/80;
+        int row = (y/80);
         return new int[]{col, row};
     }
     public Piece[][] getBoard() {
@@ -81,25 +84,24 @@ public class ChessWorld extends World
     public Piece getPieceAtPos(int row, int col) {
         return board[row][col];
     }
-    /*public void updateBoard() {
-        List<Piece> actors = getObjects(Piece.class);
-        for (Piece current: actors) {
-            int x = current.getX();
-            int y = current.getY();
-            if (x % 80 == 0) {
-                x--;
-            }
-            if (y % 80 == 0) {
-                y--;
-            }
-            setPiece(x / 80, y/80, current);
-        }
-    }*/
     public void pieceDropped(Piece p, int x, int y) {
         if (selectedPiece != null) {
             selectedPiece.setLocation(x,y);
             position(selectedPiece);
-            checkIllegalMove(p, p.getOldX(), p.getOldY(), x, y);
+            boolean legalMove = checkIllegalMove(p);
+            if (legalMove) {
+                if (selectedPiece instanceof Pawn) {
+                    if (((Pawn)(selectedPiece)).checkFirstTurn()) {
+                        ((Pawn)(selectedPiece)).setFirstTurn(false);
+                    }
+                }
+                int[] pos = convertToArray(p, p.getX(), p.getY());
+                setPiece(pos[0], pos[1], p);
+                p.setOldX(p.getX());
+                p.setOldY(p.getY());
+            } else {
+                p.setLocation(p.getOldX(), p.getOldY());
+            }
         }
     }
     public int[] getLoc(Piece p) {
@@ -123,33 +125,39 @@ public class ChessWorld extends World
     public BoardActor getBoardActor() {
         return b;
     }
+    public boolean getTwoKings() {
+        return hasTwoKings;
+    }
     public void setHasTwoKings(boolean twoKings) {
         hasTwoKings = twoKings;
     }
-    public void checkIllegalMove(Piece p, int oldX, int oldY, int newX, int newY) {
-        int[] oldPos = convertToArray(p, oldX, oldY);
-        int[] newPos = convertToArray(p, newX, newY);
-        int oldRow = oldPos[1];
-        int oldCol = oldPos[0];
-        int newRow = newPos[1];
-        int newCol = newPos[0];
-        Piece check = board[newPos[1]][newPos[0]];
-        if (p instanceof Pawn) {
-            boolean firstTurn = ((Pawn)(p)).checkFirstTurn();
-            if (firstTurn) {
-                if (checkPlace(p, check)) {
-                    setPiece(newPos[1], newPos[0], p); 
-                } else {
-                    
-                }
+    public boolean checkIllegalMove(Piece p) {
+       int[] pos = convertToArray(p, p.getX(), p.getY());
+       ArrayList<int[]> moves = p.getMoves();
+       if (moves.contains(pos)) {
+           return true;
+       }
+       return false;
+    }
+    public void showMarkers(ArrayList<int[]> moves, Piece p) {
+        if (getMarkersShown()) {
+            clearMarkers();
+            setMarkersShown(false);
+        }
+        if (p == getSelectedPiece()) {
+            for (int i = 0; i < moves.size(); i++) {
+                int x = (moves.get(i)[1]+1)* 80 + 280;
+                int y = (moves.get(i)[0]+1) * 80-40;
+                addObject(new Marker(), x, y);
             }
+            setMarkersShown(true);
         }
     }
-    public boolean checkPlace(Piece p, Piece check) {
-        if (check == null || !check.getColor().equals(p.getColor())) {
-            return true;
-        }
-        return false;
+    public boolean inBounds(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+    public void clearMarkers() {
+        removeObjects(getObjects(Marker.class));
     }
     public void position(Piece p) {
         int boardLeft = 320;        
@@ -162,5 +170,11 @@ public class ChessWorld extends World
         int x = boardLeft + (col * tileSize) + tileSize / 2;
         int y = boardTop + (row * tileSize) + tileSize / 2;
         p.setLocation(x, y);
+    }
+    public boolean getMarkersShown() {
+        return markersShown;
+    }
+    public void setMarkersShown(boolean shown) {
+        markersShown = shown;
     }
 }

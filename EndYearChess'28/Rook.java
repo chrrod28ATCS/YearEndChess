@@ -25,6 +25,20 @@ public class Rook extends Piece implements LinearMovement, PromotableTo
     }
      public ArrayList<int[]> getMoves() {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
+        int x = getLoc()[0];
+        int y = getLoc()[1];
+        ChessWorld w = (ChessWorld)(getWorld());
+        for (int i = 0; i < 8; i++) {
+            if (w.getBoard()[i][y] == null || !this.getColor().equals(w.getBoard()[i][y].getColor())) {
+                int[] add = {i, y};
+                possibleMoves.add(add);
+            }
+            if (w.getBoard()[x][i] == null|| !this.getColor().equals(w.getBoard()[x][i].getColor())) {
+                int[] add = {x, i};
+                possibleMoves.add(add);
+            }
+        }
+        ((ChessWorld)getWorld()).showMarkers(possibleMoves, this);
         return possibleMoves;
     }
     public void linearMove(int row, int col) {

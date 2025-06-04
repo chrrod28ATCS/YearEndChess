@@ -53,12 +53,18 @@ public abstract class Piece extends Actor
             world.setSelectedPiece(this);
             setOldX(this.getX());
             setOldY(this.getY());
+            if (world.getMarkersShown()) {
+                world.clearMarkers();
+                world.setMarkersShown(false);
+            }
+            world.showMarkers(getMoves(), this);
         }
         if (Greenfoot.mouseClicked(world.getBoardActor()) && world.getSelectedPiece() == this) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             if (mouse != null) {
                 world.pieceDropped(this, mouse.getX(), mouse.getY());
                 world.setSelectedPiece(null);
+                world.clearMarkers();
                 return true;
             }
         }
